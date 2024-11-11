@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour
     {
         RestartButton.SetActive(false);
     }
+    
+
 
     // Display the Score
     public void DisplayScore(int score)
