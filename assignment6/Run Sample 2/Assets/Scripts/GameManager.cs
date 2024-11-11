@@ -36,7 +36,22 @@ public class GameManager : MonoBehaviour
     {
         // CamObj는 Character의 x, y position을 따라간다.
         // ---------- TODO ---------- 
-        
+        if (CamObj != null && Character != null)
+        {
+            Vector2 offset;
+            offset.x = 0.0f;
+            offset.y = 1.0f;
+
+            Vector2 characterPos = Character.transform.position;
+            characterPos.x += offset.x;
+            characterPos.y += offset.y;
+
+            CamObj.transform.position = new Vector3(characterPos.x, characterPos.y, -10.0f);
+        }
+
+
+        return;
+
         // -------------------- 
     }
 
@@ -44,7 +59,12 @@ public class GameManager : MonoBehaviour
     {
         // Character는 초당 CharacterSpeed의 속도로 우측으로 움직인다.
         // ---------- TODO ---------- 
-        
+        Vector2 characterPos = Character.transform.position;
+        characterPos.x += CharacterSpeed * Time.deltaTime;
+
+        Character.transform.position = characterPos;
+
+        return;
         // -------------------- 
     }
 
@@ -52,7 +72,16 @@ public class GameManager : MonoBehaviour
     {
         // Character를 삭제하고, "Game Over!"라는 메시지를 3초간 띄우고, RestartButton을 활성화한다.
         // ---------- TODO ---------- 
-        
+        if(Character != null)
+        {
+            Destroy(Character);
+        }
+
+        if(MyUIManager != null)
+        {
+            MyUIManager.DisplayMessage("Game Over!",3.0f);
+            MyUIManager.RestartButton.SetActive(true);
+        }
         // -------------------- 
     }
 
@@ -60,7 +89,13 @@ public class GameManager : MonoBehaviour
     {
         // point만큼 점수를 증가시키고 UI에 표시한다.
         // ---------- TODO ---------- 
-        
+        NowScore += point;
+
+        if(MyUIManager != null)
+        {
+            MyUIManager.DisplayScore(NowScore);
+        }
+        return;
         // -------------------- 
     }
 
